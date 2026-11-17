@@ -32,13 +32,13 @@ function buscarSkin() {
   const nombreSkin = document.getElementById('input-busqueda').value.trim().toLowerCase();
   const contenedor = document.getElementById('contenedor-skins');
 
-  if (!nombreSkin || todasLasSkins.length === 0) return;
+  if (todasLasSkins.length === 0) return;
 
 
-  const coincidencias = todasLasSkins.filter(skin =>
-    skin.name.toLowerCase().includes(nombreSkin)
-  );
-
+  const coincidencias = nombreSkin === ''
+    ? todasLasSkins
+    : todasLasSkins.filter(skin => skin.name.toLowerCase().includes(nombreSkin));
+  
   contenedor.innerHTML = '';
 
   if (coincidencias.length === 0) {
@@ -46,7 +46,7 @@ function buscarSkin() {
     return;
   }
 
-  coincidencias.slice(0, 40).forEach(skin => {
+  coincidencias.slice(0, 100).forEach(skin => {
     const tarjeta = document.createElement('div');
     tarjeta.className = 'tarjeta-skin';
 

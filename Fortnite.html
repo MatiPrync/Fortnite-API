@@ -11,9 +11,16 @@
   <h1>Buscador de Skins de Fortnite</h1>
 
   <div class="buscador">
-    <input type="text" id="input-busqueda" placeholder="Ej: Midas, Banano, Aura...">
+    <input type="text" id="input-busqueda" placeholder="Ej: Midas, Banano, Aura..." value="">
     <button onclick="buscarSkin()">Buscar</button>
   </div>
+
+  <select id="filtro-rareza">
+    <option value="">Todas las rarezas</option>
+  </select>
+
+  <button onclick="buscarSkin()">Buscar</button>
+</div>
 
   <div id="contenedor-skins"></div>
 

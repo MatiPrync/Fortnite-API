@@ -91,6 +91,11 @@
     letter-spacing: 0.05rem;
   }
   
+  .temporada {
+    font-size: 0.75rem;
+    color: #4da3ff;
+  }
+  
   .descripcion {
     font-size: 0.85rem;
     color: #d0d0d8;
