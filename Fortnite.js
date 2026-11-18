@@ -29,26 +29,41 @@ async function cargarCatalogo() {
     const selectTemporada = document.getElementById('filtro-temporada');
     const selectRareza = document.getElementById('filtro-rareza');
   
-    const temporadasUnicas = new Set();
+
+    const mapaTemporadas = new Map();
     const rarezasUnicas = new Set();
   
     todasLasSkins.forEach(skin => {
       if (skin.introduction && skin.introduction.text) {
-        temporadasUnicas.add(skin.introduction.text);
+        const texto = skin.introduction.text;
+        if (!mapaTemporadas.has(texto)) {
+
+          const cap = Number(skin.introduction.chapter) || 999;
+          const temp = Number(skin.introduction.season) || 999;
+          mapaTemporadas.set(texto, { texto, cap, temp });
+        }
       }
       if (skin.rarity && skin.rarity.displayValue) {
         rarezasUnicas.add(skin.rarity.displayValue);
       }
     });
   
-    temporadasUnicas.forEach(temp => {
+
+    const temporadasOrdenadas = Array.from(mapaTemporadas.values()).sort((a, b) => {
+      if (a.cap !== b.cap) {
+        return a.cap - b.cap;
+      }
+      return a.temp - b.temp;
+    });
+  
+    temporadasOrdenadas.forEach(item => {
       const option = document.createElement('option');
-      option.value = temp;
-      option.textContent = temp;
+      option.value = item.texto;
+      option.textContent = item.texto;
       selectTemporada.appendChild(option);
     });
   
-    rarezasUnicas.forEach(rareza => {
+    Array.from(rarezasUnicas).sort().forEach(rareza => {
       const option = document.createElement('option');
       option.value = rareza;
       option.textContent = rareza;
