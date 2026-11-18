@@ -14,7 +14,7 @@ async function cargarCatalogo() {
     const resultado = await respuesta.json();
 
     if (resultado.status === 200) {
-        todasLasSkins = resultado.data.filter(item => item.type.value === 'outfit');
+        todasLasSkins = resultado.data.filter(item => item.type?.value === 'outfit');
         llenarFiltros();
         buscarSkin();
       } else {
@@ -89,15 +89,17 @@ function buscarSkin() {
       const tarjeta = document.createElement('div');
       tarjeta.className = 'tarjeta-skin';
   
-      const imagenUrl = skin.images.icon || skin.images.smallIcon;
-      const textoTemporada = skin.introduction ? skin.introduction.text : 'Sin temporada';
+      const imagenUrl = skin.images?.icon || skin.images?.smallIcon || '';
+      const textoTemporada = skin.introduction?.text || 'Sin temporada';
+      const textoRareza = skin.rarity?.displayValue || 'Común';
+      const textoDescripcion = skin.description || 'Sin descripción';
   
       tarjeta.innerHTML = `
         <img src="${imagenUrl}" alt="${skin.name}" loading="lazy">
         <h3>${skin.name}</h3>
-        <p class="rareza">${skin.rarity.displayValue}</p>
+        <p class="rareza">${textoRareza}</p>
         <p class="temporada">${textoTemporada}</p>
-        <p class="descripcion">${skin.description}</p>
+        <p class="descripcion">${textoDescripcion}</p>
       `;
   
       contenedor.appendChild(tarjeta);
